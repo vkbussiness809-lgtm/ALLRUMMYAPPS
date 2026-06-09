@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ALL RUMMY APPS</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-light: #f4f7f6; 
+      --card-bg: #ffffff;
+      --header-bg: #ffffff;
+      --accent-gold: #ffb703;
+      --accent-orange: #fb8500;
+      --text-dark: #1a1f2b;
+      --text-dim: #5c626e;
+      --danger-red: #d90429;
+      --success-green: #2b9348;
+      --border-green: #4CAF50;
+    }
+
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      font-family: 'Poppins', sans-serif; 
+    }
+
+    html, body {
+      width: 100%;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* --- Header Area --- */
+    header {
+      background: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 4%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-img {
+      width: 32px;   
+      height: 32px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .logo-text span {
+      color: orange;
+    }
+
+    .search-box {
+      background: #f0f2f5;
+      border-radius: 50px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+    }
+    .search-box input { background: none; border: none; outline: none; width: 110px; font-size: 0.75rem; }
+    .search-box button { background: none; border: none; color: var(--accent-orange); font-size: 0.75rem; cursor: pointer; }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      background: #fdfdfd;
+    }
+
+    .nav-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .nav-link i { font-size: 1rem; }
+    .nav-link.active { color: var(--accent-orange); }
+
+    /* --- Slider --- */
+    .hero-section { padding: 12px 4%; max-width: 500px; margin: 0 auto; }
+    .carousel { position: relative; overflow: hidden; border-radius: 12px; }
+    .slides { display: flex; transition: 0.6s ease; }
+    .slide { min-width: 100%; position: relative; }
+    .game-banner img { width: 100%; height: auto; display: block; }
+    
+    .banner-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .featured-tag { background: var(--accent-orange); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: bold; }
+    .btn-play { background: linear-gradient(45deg, var(--accent-gold), var(--accent-orange)); border: none; padding: 5px 12px; border-radius: 4px; font-weight: 800; font-size: 0.65rem; color: #fff; }
+
+    .dots { position: absolute; bottom: 8px; width: 100%; text-align: center; }
+    .dot { height: 5px; width: 5px; background: rgba(255,255,255,0.4); display: inline-block; border-radius: 50%; margin: 0 2px; }
+    .dot.active { background: #fff; width: 14px; border-radius: 10px; }
+
+    /* --- App Listing Section --- */
+    .app-listing-section {
+      padding: 15px 4%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .app-card {
+      background: #ffffff;
+      border-radius: 50px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: row !important; 
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border-green);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    /* Search filter hidden class */
+    .app-card.hidden {
+      display: none !important;
+    }
+
+    #no-results {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .card-left {
+      display: flex;
+      flex-direction: row !important;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0; 
+    }
+
+    .rank {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--text-dark);
+      width: 22px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+    }
+
+    .app-icon {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .app-title {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: row !important;
+      gap: 4px;
+      align-items: center;
+      font-size: 0.58rem;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .bonus-tag {
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.08);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    
+    .withdraw-tag {
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .card-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      margin-left: 5px;
+    }
+
+    .download-button {
+      background: linear-gradient(180deg, #57cc99, #38b000);
+      color: white;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(56, 176, 0, 0.2);
+      white-space: nowrap;
+    }
+
+    /* --- Disclaimer Bottom Section --- */
+    .disclaimer-strip {
+      background: #ffffff;
+      padding: 15px 4%;
+      margin: 15px 4%;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid rgba(217, 4, 41, 0.1);
+    }
+    .disclaimer-strip h4 { color: var(--danger-red); font-size: 0.85rem; margin-bottom: 5px; }
+    .disclaimer-strip p { font-size: 0.7rem; color: var(--text-dim); line-height: 1.4; }
+
+    /* --- Popup Styling --- */
+    .popup {
+      display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+    .popup-content {
+      background: #ffffff; margin: 10% auto; padding: 22px;
+      width: 90%; max-width: 450px; height: 65vh; overflow-y: auto; border-radius: 15px; position: relative;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    }
+    .popup-content h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--text-dark); border-bottom: 2px solid #f0f2f5; padding-bottom: 6px; }
+    .popup-content h4 { font-size: 0.9rem; margin: 12px 0 4px 0; color: #1a1f2b; }
+    .popup-content p { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 10px; text-align: justify; }
+    .popup-content ul { font-size: 0.78rem; color: var(--text-dim); padding-left: 18px; margin-bottom: 10px; }
+    .popup-content ul li { margin-bottom: 4px; }
+    .close { position: absolute; right: 15px; top: 10px; font-size: 24px; cursor: pointer; color: #888; transition: 0.2s; }
+    .close:hover { color: var(--danger-red); }
+  
+    /* Mobile Fix */
+    @media (max-width: 768px){
+      .app-card{
+        display:flex;
+        flex-wrap:nowrap !important;
+        align-items:center;
+        justify-content:space-between;
+        padding:10px;
+        border-radius:35px;
+      }
+
+      .card-left{
+        display:flex;
+        flex-wrap:nowrap !important;
+        align-items:center;
+        gap:10px;
+        flex:1;
+        min-width:0;
+      }
+
+      .card-middle{
+        flex:1;
+        min-width:0;
+      }
+
+      .app-title{
+        font-size:18px;
+        font-weight:700;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .detail-row{
+        display:flex;
+        flex-wrap:nowrap;
+        gap:5px;
+      }
+
+      .bonus-tag,
+      .withdraw-tag{
+        font-size:11px;
+        padding:3px 6px;
+      }
+
+      .download-button{
+        font-size:14px;
+        padding:10px 18px;
+        border-radius:30px;
+        white-space:nowrap;
+      }
+
+      .icon-box{
+        width:50px;
+        height:50px;
+      }
+
+      .rank{
+        width:auto;
+        font-size:20px;
+        font-weight:700;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="topbar">
+      <div class="logo">
+        <img src="pt/image.png" alt="logo" class="logo-img">
+        <div class="logo-text">ALL<span>Rummy</span>APPS</div>
+      </div>
+      <div class="search-box">
+        <input type="text" id="gameSearch" onkeyup="filterGames()" placeholder="Search games...">
+        <button onclick="filterGames()"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+    
+    <nav class="nav-bar">
+      <a href="#" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="javascript:void(0)" class="nav-link" onclick="openPopup('aboutPop')"><i class="fas fa-gamepad"></i><span>About</span></a>
+      <a href="javascript:void(0)" class="nav-link" onclick="openPopup('privPop')"><i class="fas fa-shield-alt"></i><span>Privacy</span></a>
+      <a href="javascript:void(0)" class="nav-link" onclick="openPopup('disclaimerPop')"><i class="fas fa-exclamation-triangle"></i><span>Disclaimer</span></a>
+    </nav>
+  </header>
+
+  <div class="hero-section">
+    <div class="carousel">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <a href="https://phon.pe/oywwcqkp" target="_blank">
+            <div class="game-banner">
+              <img src="pt/image copy 2.png" alt="Ad">
+              <div class="banner-overlay">
+                <span class="featured-tag">FEATURED</span>
+                <button class="btn-play">DOWNLOAD NOW</button>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="slide">
+          <a href="https://t.me/alllrummyappp" target="_blank">
+            <div class="game-banner">
+              <img src="pt/image copy.png" alt="Telegram Ad">
+              <div class="banner-overlay">
+                <button class="btn-play">JOIN NOW</button>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    <script>
+let currentSlide = 0;
+const slides = document.getElementById("slides");
+const dots = document.querySelectorAll(".dot");
+const totalSlides = document.querySelectorAll(".slide").length;
+
+function showSlide(index) {
+  slides.style.transform = `translateX(-${index * 100}%)`;
+
+  dots.forEach(dot => dot.classList.remove("active"));
+  dots[index].classList.add("active");
+}
+
+setInterval(() => {
+  currentSlide++;
+  if (currentSlide >= totalSlides) {
+    currentSlide = 0;
+  }
+  showSlide(currentSlide);
+}, 3000); // 3 second me slide change
+</script>
+    </div>
+  </div>
+
+  <section class="app-listing-section">
+    <h2 class="section-title">✅Yono Rummy App</h2>
+    
+    <div id="no-results">No games found!</div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">1</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.03.22 AM.jpeg" class="app-icon" alt="MQMBET">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">567 Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://567slotsrefer05.cc/?code=4NYYR56985W&t=1780461136" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">2</span>
+        <div class="icon-box">
+          <img src="pt/WhatsApp Image 2026-06-02 at 9.25.46 AM.jpeg" class="app-icon" alt="GOOD SLOTS">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">GOOD Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://sharegoodslots4.vip?pid=497854012&channel=2030111&t=pdd2&pkg=com.goodslots111.com" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">3</span>
+        <div class="icon-box">
+          <img src="pt/WhatsApp Image 2026-06-02 at 9.27.06 AM.jpeg" class="app-icon" alt="SVIP 777">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">SVIP 777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.svip777.info?pid=377590742&channel=2010001&t=pdd2&pkg=com.svip777.app" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">4</span>
+        <div class="icon-box">
+          <img src="pt/WhatsApp Image 2026-06-02 at 9.28.39 AM.jpeg" class="app-icon" alt="DIWA SLOTS">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">DIWA Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://sharediwaslots1.vip?pid=269210109&channel=2030101&t=pdd2&pkg=com.diwaslot101.app" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">5</span>
+        <div class="icon-box">
+          <img src="pt/WhatsApp Image 2026-06-02 at 9.32.46 AM.jpeg" class="app-icon" alt="DIWA VIP">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">DIWA VIP</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://diwavipshare.in?pid=403857315&channel=2050001&t=pdd2&pkg=com.diwavip.h5" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">6</span>
+        <div class="icon-box">
+          <img src="pt/WhatsApp Image 2026-06-02 at 9.37.14 AM.jpeg" class="app-icon" alt="Teen Ptee master">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Teen Ptee master</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.earntp.com/m/vvh5wb?scene=&f=w&p=wa&l=en&tp=m163" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">7</span>
+        <div class="icon-box">
+          <img src="pt/image copy 3.png" class="app-icon" alt="DIWA 777">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">DIWA 777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://sharediwa7776.top?pid=334144379&channel=2030101&t=pdd2&pkg=com.diwa777101.app" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">8</span>
+        <div class="icon-box">
+          <img src="pt/image copy 4.png" class="app-icon" alt="NANO GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">NANO GAME</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://google.betnanogame.com/99999/index.html?uid=2004564904542621697&type=1&invite=Ot9mO1" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">9</span>
+        <div class="icon-box">
+          <img src="pt/image copy 5.png" class="app-icon" alt="Sona game">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Sona Game</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://google.sona.bet/50002/index.html?uid=1839163360170016770&type=1&invite=aARTYg" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">10</span>
+        <div class="icon-box">
+          <img src="pt/image copy 6.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">M77GAME</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://invite.17m77.click/88885-in-1/index.html?uid=1974863196549570561&type=1&invite=e906Yl" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">11</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.43.02 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">112GAME</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://share.112game.life/?invite_code=87f1yy" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">12</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.44.00 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">BIGO WIN</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://invite.10bigowin.click/88887-in-1/index.html?uid=1955219016441536513&type=1&invite=3IzbN7" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">13</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.44.43 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Teen Ptee Master New</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://kaikro.com/aw/8ehvx?f=w&p=wa&l=en&tp=m177&rtk=ue5oPjTFJG6ujX9HkR1NwDqrzHNNcc4NxNqXywGDLQFf9EdoDeF92J0emHNIdCH%2Bacvv8bedwD8r%2Fvx9KZfWGDvwSawFuMOpx%2FnQlMNx4e3%2FZqY6QlExGsGS55MT8rL5wK4BizeSQOT8h%2BJHRmafjfPkCGw%2B0crR7NXmwxLE5AqU8B%2B50MOo0e7BbI5H6ibA&scenes=&scene=" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">14</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.46.21 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">IND CLUB</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://indclub36.com/?code=34UU9WSLUB6&t=1780373738" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">15</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.47.33 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">YONO RUMMY</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://yonorummy039.com/?code=FJ9BPXQPASB&t=1780373837" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">16</span>
+        <div class="icon-box">
+          <img src="pt\image copy 7.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Yes spin</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.yesspinhhh.com/?code=7GPYC7N1KJ4&t=1780373860" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">17</span>
+        <div class="icon-box">
+          <img src="pt\image copy 8.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">789 jackpots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://789jackpotsrefer07.cc/?code=XPZ5FS12Q26&t=1780373897" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">18</span>
+        <div class="icon-box">
+          <img src="pt\image copy 9.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Spin Crush</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://ajedsklgesf.safelyearnmillionsbysharingonepersonaqfxzqyj7.com/?code=3D7V75Z38JB&t=1780374024" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">19</span>
+        <div class="icon-box">
+          <img src="pt\image copy 10.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Ok Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.okrummy23.com/?code=27B7NV76SJR&t=1780374059" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">20</span>
+        <div class="icon-box">
+          <img src="pt\image copy 11.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Rumble Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.rumblerummy666.vip/?code=UC0ZSVWFLMW&t=1780374366" class="download-button">Download</a>
+      </div>
+    </div>
+
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">21</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.05.03 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Hiii Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://hirummyrefer09.cc/?code=RX3NZTXXTNH&t=1780374871" class="download-button">Download</a>
+      </div>
+    </div>
+
+
+         <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">22</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.59.05 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Game Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://gamerummyc.com/?code=Q6W2XMH7756&t=1780374456" class="download-button">Download</a>
+      </div>
+    </div>
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">23</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 9.59.53 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Boss Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.bossrummyg.com/?code=LSH683VSQX5&t=1780374578" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">24</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.01.00 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Rummy 888</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://rummy888vip49.com/?code=7WT9N42BJTU&t=1780374636" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">25</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.02.03 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Love Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.loverummy6.com/?code=AFCDQP1TE9B&t=1780374697" class="download-button">Download</a>
+      </div>
+    </div>
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">26</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.02.57 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Club Inr</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.clubinr.in/?code=9VC6E66K86V&t=1780374745" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">26</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.04.04 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Share Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://share677.com/?code=GFVK4E5BCDE&t=1780374814" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">27</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.05.59 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Jay ho win</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.jaihowin12.com/?code=1XNBVBF7LMV&t=1780374905" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">28</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.06.54 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Rummy 91</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://rummy91f.com/?code=UXTP5XQ6996&t=1780374950" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">29</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-02 at 10.07.48 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">ABC Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.abcrummy9.com/?code=75C9AFF967X&t=1780375002" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">30</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.38.25 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Saga Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.sagaslotskfc.com/?code=0QHLA263HGT&t=1780459655" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">31</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.39.10 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">NETA VIP</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.neta1.vip/?code=DR06VTDCA63&t=1780459720" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">32</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.40.07 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Spin Winner</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://7spinwinner.com/?code=26Y5QSD7S9A&t=1780459803" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">33</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.41.19 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">SPIN 777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://spin777dd.com/?code=YLWKN97FZBZ&t=1780459854" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">34</span>
+        <div class="icon-box">
+          <img src="pt\image copy 12.png" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">101Z</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://101z3.com/?code=M3XWRV5DW4C&t=1780459920" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">35</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.43.12 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">MBM BET</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.mbmbet12.com/?code=808CWBXDHDJ&t=1780459966" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">36</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.44.11 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">JAIHO 91</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://jaiho91.me/?code=C42PDXA3RCL&t=1780460007" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">37</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.45.22 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Ind Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.indslotsbonus.com/?code=G75U9VYEG3Z&t=1780460062" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">38</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.46.14 AM copy.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">YONO GAMES</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="yonogamesd.com/?code=ZG5REJ6ZXD7&t=1780460141" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">39</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.46.56 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">JAY Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.joyrummy.me/?code=SXX6D6F9FZ5&t=1780460186" class="download-button">Download</a>
+      </div>
+    </div>
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">40</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.47.43 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">IND Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://hindrummy.com/?code=2BA4QSJ3862&t=1780460231" class="download-button">Download</a>
+      </div>
+    </div>
+
+     <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">41</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.49.13 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">HINDI 777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.hindi777agent1.com/?code=ETCX9JQQ8R9&t=1780460348" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">42</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.50.08 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">77GAME</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.777game3.com/?code=KJVZ4PN32GU&t=1780460383www.777game7.com" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">43</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.50.48 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">MAHA GAMES</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://okay-mahagames.com/?code=J24S7JY28TM&t=1780460450" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">44</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.51.44 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">YONO VIP</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://uonovipwin.vip/?code=5NF6XFR2PTB&t=1780460494" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">45</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.52.33 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">JAIHO Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://jaihorummy.co/?code=E74JQQUT4FE&t=1780460526" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">46</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.53.34 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">yn777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.y754.com/?code=4SWTYYZ6W7U&t=1780460567" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">47</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.54.18 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">JayHo Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.jaihoslots13.com/?code=EGPFABLFH4H&t=1780460606" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">48</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.55.06 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">YONO Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.uonoslots.shop/?code=SRJ963GXHSD&t=1780460654" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">49</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.56.10 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">GOGO Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.gogotop.bet/?code=8FWGJFCV78U&t=1780460688" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">50</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.56.47 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Spin Gold</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://spingoldagents.cc/?code=U6QQHAUWC44&t=1780460774" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">51</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.57.30 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Slots Winner</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://slotswinnerg.com/?code=KUNTMN7HVKE&t=1780460872" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">52</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 9.58.53 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Jayho Spin</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://tyjaihospin.com/?code=H1ZJM5YH&t=1780460908" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">53</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.00.12 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Bet213 Slots</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.bet213app.com/?code=2QTAR4B2BYJ&t=1780460970" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">54</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.01.14 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">SPIN 101</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://spin101-e.org/?code=P4CRGLK85LP&t=1780461030" class="download-button">Download</a>
+      </div>
+    </div> 
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">55</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.01.55 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">BINGO 101</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://bingo101.me/?code=6YFUQ6A8R6R&t=1780461065" class="download-button">Download</a>
+      </div>
+    </div> 
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">56</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.02.40 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Rummy Ludo</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="ramiludo.com/?code=UWPGEU68S9Q&t=1780461104" class="download-button">Download</a>
+      </div>
+    </div> 
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">57</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.04.07 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Yono Arcade</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://yonoarcadeapk3.com/?code=V17WZ6MGV4B&t=1780461173" class="download-button">Download</a>
+      </div>
+    </div> 
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">58</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.04.53 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">YONO 777</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://uono777.xyz/?code=1JFFU4GW75X&t=1780461211" class="download-button">Download</a>
+      </div>
+    </div> 
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">59</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.05.58 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">INR Rummy</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://inrrummy.love/?code=8QUNXVALHC3&t=1780461323" class="download-button">Download</a>
+      </div>
+    </div> 
+
+
+        <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">60</span>
+        <div class="icon-box">
+          <img src="pt\WhatsApp Image 2026-06-03 at 10.06.40 AM.jpeg" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">Slots Spin</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="https://www.slotsspini.com/?code=XJBUYMWUJ7N&t=1780461376" class="download-button">Download</a>
+      </div>
+    </div> 
+<!--
+    <div class="app-card"> 
+      <div class="card-left">
+        <span class="rank">22</span>
+        <div class="icon-box">
+          <img src="image" class="app-icon" alt="M77GAME">
+        </div>
+        <div class="card-middle">
+          <div class="app-title">M77GAME</div>
+          <div class="detail-row">
+            <span class="bonus-tag">Bonus Upto ₹50</span>
+            <span class="withdraw-tag">Min Withdraw ₹100</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <a href="#" class="download-button">Download</a>
+      </div>
+    </div> 
+-->
+  </section>
+
+  <div id="aboutPop" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('aboutPop')">&times;</span>
+      <h3>About Our Platform</h3>
+      <p>Welcome to <strong>ALL RUMMY APPS</strong>, your number one trusted directory and review platform for the latest and most popular online card games, Rummy, and Slot applications. Our mission is to provide card game enthusiasts with a safe, streamlined, and updated database of apps available in the market.</p>
+      <h4>What We Do</h4>
+      <p>We closely monitor the online gaming landscape to bring you real-time information regarding registration bonuses, daily sign-in rewards, minimum withdrawal limits, and payout frequencies. We understand how difficult it can be to find valid download links, which is why we verify and consolidate official APK links in one responsive dashboard.</p>
+      <h4>Why Choose Us?</h4>
+      <ul>
+        <li><strong>Verified Links:</strong> Every app listing is continuously checked to ensure the links lead to functional and secure application packages.</li>
+        <li><strong>Updated Bonus Info:</strong> We highlight clear details about promotional sign-up features so you know exactly what to expect.</li>
+        <li><strong>User-Centric Design:</strong> Our UI is fully optimized for quick search functionality on any modern smartphone or tablet device.</li>
+      </ul>
+      <p>Please note that our website operates strictly as an information provider and aggregate directory. We do not own, develop, or operate any of the third-party games listed here. We advocate for smart digital choices and transparency above all else.</p>
+    </div>
+  </div>
+
+  <div id="privPop" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('privPop')">&times;</span>
+      <h3>Privacy Policy</h3>
+      <p>At ALL RUMMY APPS, accessible from our main web address, one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by our platform and how we utilize it.</p>
+      
+      <h4>Log Files and Technical Data</h4>
+      <p>Like most standard websites, we utilize log files. These files merely log visitors when they visit the site—a standard procedure for hosting companies and a part of hosting services' analytics. The information inside the log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and possibly the number of clicks. This data is not linked to any personally identifiable information and is purely used to analyze user trends, manage site performance, and track overall user movement.</p>
+      
+      <h4>Cookies and Tracking Technology</h4>
+      <p>We may use cookies to store information about visitors' preferences, to record user-specific information on which pages the user accesses or visits, and to customize our web page content based on visitors' browser types or other information that the visitor sends via their browser.</p>
+
+      <h4>Third-Party Links and Downloads</h4>
+      <p>Our platform contains multiple download buttons linking to external third-party software, applications, or websites. Please be aware that we have no control over the content, tracking technologies, or individual privacy policies of these external entities. Once you click a download button or exit our site, your data is governed strictly by that respective third party's privacy guidelines. We highly recommend reviewing their specific documentation before registering your mobile number or depositing capital.</p>
+
+      <h4>Consent</h4>
+      <p>By interacting with and utilizing our webpage, you hereby consent to our corporate privacy structures and agree to all structural terms stated herein.</p>
+    </div>
+  </div>
+
+  <div id="disclaimerPop" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('disclaimerPop')">&times;</span>
+      <h3>Disclaimer & Risk Warning</h3>
+      <p>The information contained on this website is intended for general informational, educational, and entertainment purposes only. The owner of this website assumes no responsibility for errors or omissions in the contents provided.</p>
+      
+      <h4>Financial Risk and Addiction Warning</h4>
+      <p style="color: #d90429; font-weight: 600;">CRITICAL NOTICE: All games listed on this platform involve real-world money transactions, virtual betting, and financial elements. Engaging in these games carries a substantial risk of financial loss. Online gaming can be highly addictive. We strongly encourage all players to exercise extreme caution and play responsibly within their personal financial thresholds.</p>
+      
+      <h4>Age Restrictions and Legal Compliance</h4>
+      <p>Participation in cash-based online games is strictly restricted to individuals who are <strong>18 years of age or older</strong>. It is your sole responsibility to ensure that online rummy, slot games, or virtual card wagering are legal within your country, state, or local jurisdiction. Certain jurisdictions have banned cash gaming outright; users living in those regions must immediately refrain from installing these applications.</p>
+
+      <h4>No Warranties or Liability</h4>
+      <p>In no event shall ALL RUMMY APPS be liable for any special, direct, indirect, consequential, or incidental damages or losses arising out of or in connection with the use of the third-party apps listed here. We do not guarantee the solvency, financial safety, or reliable withdrawal fulfillment of any external application. Any deposits made inside these games are done purely at your own risk.</p>
+    </div>
+  </div>
+
+  <script>
+    // Real-time Filtering Javascript logic
+    function filterGames() {
+      let input = document.getElementById('gameSearch').value.toLowerCase();
+      let cards = document.getElementsByClassName('app-card');
+      let noResults = document.getElementById('no-results');
+      let visibleCount = 0;
+
+      for (let i = 0; i < cards.length; i++) {
+        let titleElement = cards[i].querySelector('.app-title');
+        if (titleElement) {
+          let titleText = titleElement.textContent || titleElement.innerText;
+          
+          if (titleText.toLowerCase().indexOf(input) > -1) {
+            cards[i].classList.remove('hidden');
+            visibleCount++;
+          } else {
+            cards[i].classList.add('hidden');
+          }
+        }
+      }
+
+      if (visibleCount === 0) {
+        noResults.style.display = "block";
+      } else {
+        noResults.style.display = "none";
+      }
+    }
+
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target.classList.contains('popup')) {
+        event.target.style.display = "none";
+      }
+    }
+  </script>
+
+  <footer class="rummy-footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <h2>ALL Rummy APPS</h2>
+            <p> <h4>Financial Risk and Addiction Warning</h4></p>
+        </div>
+      <p style="color: #d90429; font-weight: 600;">CRITICAL NOTICE: All games listed on this platform involve real-world money transactions, virtual betting, and financial elements. Engaging in these games carries a substantial risk of financial loss. Online gaming can be highly addictive. We strongly encourage all players to exercise extreme caution and play responsibly within their personal financial thresholds.</p>
+
+        <div class="footer-copy">
+            © 2026 ALLRummyAPPS. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<style>
+.rummy-footer{
+    background: linear-gradient(135deg,#111,#1b1b1b,#0d0d0d);
+    color:#fff;
+    padding:40px 20px;
+    border-top:2px solid #d4af37;
+    font-family:'Poppins',sans-serif;
+}
+
+.footer-content{
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+}
+
+.footer-logo h2{
+    color:#d4af37;
+    margin:0;
+    font-size:28px;
+    letter-spacing:1px;
+}
+
+.footer-logo p{
+    color:#ccc;
+    margin:8px 0 20px;
+}
+
+.footer-links{
+    margin-bottom:25px;
+}
+
+.footer-links a{
+    color:#fff;
+    text-decoration:none;
+    margin:0 12px;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#d4af37;
+}
+
+.footer-warning{
+    margin:20px auto;
+    max-width:600px;
+}
+
+.badge{
+    display:inline-block;
+    background:#d4af37;
+    color:#111;
+    font-weight:700;
+    padding:8px 16px;
+    border-radius:30px;
+    margin-bottom:10px;
+}
+
+.footer-warning p{
+    color:#bbb;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.footer-copy{
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid rgba(212,175,55,.3);
+    color:#999;
+    font-size:14px;
+}
+</style>
+</body>
+</html>
